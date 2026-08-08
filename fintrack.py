@@ -24,7 +24,7 @@ def main():
         choice = input("Choose an option: ")
         match choice:
             case "1":
-                pass
+                view_portfolio(p)
             case "2":
                 pass
             case "3":
@@ -35,6 +35,11 @@ def main():
                 break
             case _:
                 print("Invalid option. Try again.")
+
+def view_portfolio(p: Portfolio):
+    if len(p) == 0:
+        print("No holding yet.")
+    else: print(p)
 
 if __name__ == "__main__":
     main()
