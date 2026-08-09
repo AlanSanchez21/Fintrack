@@ -1,7 +1,7 @@
+import re
 from portfolio import Stock, Portfolio
 from data import load_holdings, save_holdings, update_holdings, remove_holding
 from prices import get_price, get_prices
-import re
 
 def main():
     p = Portfolio()
@@ -29,9 +29,9 @@ def main():
             case "2":
                 add_holding(p)
             case "3":
-                pass
+                remove_holding_menu(p)
             case "4":
-                pass
+                refresh_prices(p)
             case "5":
                 break
             case _:
@@ -68,6 +68,24 @@ def add_holding(p: Portfolio):
     p.add(stock)
     update_holdings(ticker, shares, price)
     print(f"Added {ticker}: {shares} shares at ${price:.2f}")
+    
+def remove_holding_menu(p: Portfolio):
+    ticker = input("Ticker: ").upper()
+    if ticker not in p:
+        print(f"{ticker} not found in the portfolio.")
+        return
+    p.remove(ticker)
+    remove_holding(ticker)
+    print(f"{ticker} removed from the portfolio.")
+    
+def refresh_prices(p: Portfolio):
+    prices = get_prices(list(p.stocks.keys()))
+    if not prices:
+        print("Could not fetch prices.")
+        return
+    for ticker, price in prices.items():
+        p.stocks[ticker].price = price
+    print("Prices updated.")
     
 if __name__ == "__main__":
     main()
