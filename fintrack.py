@@ -1,6 +1,7 @@
 from portfolio import Stock, Portfolio
 from data import load_holdings, save_holdings, update_holdings, remove_holding
 from prices import get_price, get_prices
+import re
 
 def main():
     p = Portfolio()
@@ -26,7 +27,7 @@ def main():
             case "1":
                 view_portfolio(p)
             case "2":
-                pass
+                add_holding(p)
             case "3":
                 pass
             case "4":
@@ -41,5 +42,32 @@ def view_portfolio(p: Portfolio):
         print("No holding yet.")
     else: print(p)
 
+def add_holding(p: Portfolio):
+    while True:
+        ticker = input("Ticker: ").upper()
+        if re.fullmatch(r'[A-Z]{1,5}', ticker):
+            break
+        print("Invalid ticker. Try Again.")
+
+    while True:
+        try:
+            shares = int(input("Shares: "))
+        except ValueError:
+            print("Invalid shares. Try again.")
+        else:
+            if shares <= 0:
+                print("Shares must be positive. Try again.")
+            else: break
+
+    price = get_price(ticker)
+    if price is None:
+        print(f"Could not fetch price for {ticker}.")
+        return
+
+    stock = Stock(ticker, price, shares, price)
+    p.add(stock)
+    update_holdings(ticker, shares, price)
+    print(f"Added {ticker}: {shares} shares at ${price:.2f}")
+    
 if __name__ == "__main__":
     main()
