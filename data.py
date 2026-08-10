@@ -24,3 +24,8 @@ def update_holdings(ticker, shares, cost_basis):
     else:
         holdings.append({"ticker": ticker, "shares": shares, "cost_basis": cost_basis})
     save_holdings(holdings)
+    
+def remove_holding(ticker: str):
+    holdings = load_holdings()
+    holdings = [h for h in holdings if h["ticker"] != ticker]
+    save_holdings(holdings)
