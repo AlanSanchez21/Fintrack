@@ -66,13 +66,19 @@ def main():
         stock = Stock(ticker, price, shares, cost_basis)
         p.add(stock)
 
+def show_chart(p: Portfolio):
+    ...
+
     while True:
+        print("-----------------------------")
         print("1. View Portfolio")
         print("2. Add holding")
         print("3. Remove holding")
         print("4. Refresh prices")
         print("5. Exit")
         choice = input("Choose an option: ")
+        print("-----------------------------")
+
         match choice:
             case "1":
                 view_portfolio(p)
