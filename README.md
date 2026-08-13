@@ -1,6 +1,9 @@
 # Fintrack
 A CLI-based personal finance tracker built in Python. Track stock holdings, fetch live prices via yfinance, calculate unrealized gains/losses, and generate portfolio summaries, with persistent CSV storage. **This is a SIMULATION**
 
+# Extentions used:
+`yfinance`, `matplotlib`
+
 # Install it !
 The only things you need to download is : yfinance. To download, write in the terminal "pip3 install yfinance".
 
@@ -15,7 +18,8 @@ There will appear a menu with 5 interactive options.
 |   2. `Add to Portfolio` | Write the stock synbol and the amount of shares you want, and it will store it in the portfolio. |
 |   3. `Remove from Portfolio` | Write the stock synbol and the amount of shares you want to be removed, and it will remove them from the portfolio. |
 |   4. `Refresh Portfolio` | Will refresh the value of the stock to the most recent registered price. |
-|   5. `Exit`| Will kick you out of the program |
+|   5. `History Chart`| Will should you the history of Stocks added or removed of the program |
+|   6. `Exit`| Will kick you out of the program |
 
 # File Structures
 | File | Description |
