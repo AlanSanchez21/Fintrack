@@ -1,7 +1,8 @@
 import re
+import matplotlib.pyplot as plt
 from portfolio import Stock, Portfolio
 from data import load_holdings, save_holdings, update_holdings, remove_holding
-from prices import get_price, get_prices
+from prices import get_price, get_prices, get_history
 
 def view_portfolio(p: Portfolio):
     if len(p) == 0:
@@ -53,6 +54,24 @@ def refresh_prices(p: Portfolio):
         p.stocks[ticker].price = price
     print("Prices updated.")
 
+def show_chart(p: Portfolio):
+    ticker = input("Ticker: ").upper()
+    if ticker not in p:
+        print(f"{ticker} not in portfolio.")
+        return
+    hist = get_history(ticker)
+    if hist is None:
+        print(f"Could not fetch history for {ticker}.")
+        return
+    dates, prices = hist
+    plt.figure(figsize=(10, 4))          
+    plt.plot(dates, prices)              
+    plt.title(f"{ticker} - Last Month")  
+    plt.xlabel("Date")                   
+    plt.ylabel("Price (USD)")            
+    plt.tight_layout()                   
+    plt.show()   
+
 def main():
     p = Portfolio()
     loaded_holdings = load_holdings()
@@ -65,17 +84,15 @@ def main():
             price = cost_basis
         stock = Stock(ticker, price, shares, cost_basis)
         p.add(stock)
-
-def show_chart(p: Portfolio):
-    ...
-
+        
     while True:
         print("-----------------------------")
         print("1. View Portfolio")
         print("2. Add holding")
         print("3. Remove holding")
         print("4. Refresh prices")
-        print("5. Exit")
+        print("5. Show history chart")
+        print("6. Exit")
         choice = input("Choose an option: ")
         print("-----------------------------")
 
@@ -89,6 +106,8 @@ def show_chart(p: Portfolio):
             case "4":
                 refresh_prices(p)
             case "5":
+                show_chart(p)
+            case "6":
                 break
             case _:
                 print("Invalid option. Try again.")
