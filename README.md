@@ -7,6 +7,8 @@ A CLI-based personal finance tracker built in Python. Track stock holdings, fetc
 # Install it !
 The only things you need to download is : yfinance. To download, write in the terminal "pip3 install yfinance".
 
+The only things you need to download is : matplotlib. To download, write in the terminal "pip3 install matplotlib".
+
 # How to run it
 The most efficient way to run the program is through writting in the terminal "python3 fintrack.py".
 
